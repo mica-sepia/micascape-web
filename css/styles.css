@@ -218,18 +218,32 @@ li:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #1a1b26; /* Matches your body background */
-    color: #73daca;          /* Clean terminal green for boot logs */
+    width: 100%;
+    /* fill the dynamic mobile viewport completely */
+    height: 100dvh; 
+    background-color: #1a1b26 !important;
+    color: #73daca;
     font-family: 'Courier New', Courier, monospace;
-    padding: 30px;
+    padding: 20px;
     box-sizing: border-box;
-    z-index: 9999;           /* Sits on top of absolutely everything */
-    overflow: hidden;
+    z-index: 9999;
+    /* prevents the user from scrolling past the boot sequence */
+    overflow-y: auto; 
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+/* Force mobile Chrome to render the exact hex colors natively */
+.log-success {
+    color: #9ece6a !important;
+    -webkit-text-fill-color: #9ece6a !important;
+}
+
+.log-warn {
+    color: #e0af68 !important;
+    -webkit-text-fill-color: #e0af68 !important;
 }
 
 /* Individual log lines */

@@ -6,6 +6,7 @@
     <title>micascape</title>
     
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📟</text></svg>">
 
     <style>
         .content-section {
@@ -14,20 +15,23 @@
         .content-section.active-section {
             display: block;
         }
-        
-        .tui-bio {
-            white-space: pre-wrap;
-            font-family: inherit;
-            color: #a9b1d6;
-        }
+       
     </style>
 </head>
 <body>
 
+    <div id="boot-screen">
+        <div id="boot-log"></div>
+        <span class="cursor">_</span>
+    </div>
+
+    <canvas id="matrix-canvas"></canvas>
+
     <div class="header-grid">
         <div class="tui-box">
             <span class="tui-label">Search</span>
-            <span class="search-prompt">type to search (this doesnt work lol).</span>
+            <span class="search-prompt">▸ </span>
+            <input type="text" id="terminal-input" placeholder="type a command... (try 'matrix' or 'help')" autocomplete="off">
         </div>
         <div class="tui-box">
             <span class="tui-label">Help</span>
@@ -42,7 +46,6 @@
                 <span class="tui-label">Menu</span>
                 <ul>
                     <li id="menu-home" onclick="switchTab('home')">■ Home</li>
-                    <!-- <li id="menu-projects" onclick="switchTab('projects')">□ Projects</li> -->
                     <li id="menu-contact" onclick="switchTab('contact')">□ Contact</li>
                 </ul>
             </div>
@@ -53,6 +56,8 @@
                     <li>▸ HTML / CSS</li>
                     <li>▸ python</li>
                     <li>▸ larping</li>
+                    <li>▸ writing</li>
+                    <li>▸ environmental / 3d artist</li>
                 </ul>
             </div>
         </div>
@@ -61,7 +66,25 @@
             <span class="tui-label" id="dynamic-label">System-Root</span>
             
             <div id="section-home" class="content-section active-section">
-                <p class="tui-bio">▸ hello, i'm micasepia </p>
+                
+                <div class="gradient-title">// mica@syskit</div>
+                <p class="tui-bio">Hello and thank you for checking out my website! :D I'm micasepia and I'm a 'developer with passion for tech'.
+                    I love to spend my time hanging out with my friends, playing games and just having fun!
+                    Outside of school and gaming I am usually making stuff :P Like for example this website!
+                    I come from scotland and I am a <span class="trans-gradient">transgender</span> furry :3
+                </p>
+
+                <br>
+                <div class="gradient-title">// focuses@time</div>
+                <ul class="home-list">
+                    <li>▸ School work right now mainly</li>
+                    <li>▸ Working on my Roblox project, 'Bloxsplosion.'</li>
+                    <li>▸ Writing new stories and remastering the existing ones, espically the [REDACTED SERIES].</li>
+                </ul>
+                
+                <br>
+                <div class="gradient-title">// notes@quick</div>
+                <p class="tui-bio"> you can see everything i think im good at on the "skills" tab, if you want to say hi to me somewhere, check out the "contact" tab!</p>
             </div>
 
             <div id="section-projects" class="content-section">
@@ -104,7 +127,6 @@
             </div>
 
             <div id="section-contact" class="content-section">
-                <h3>comms channels</h3>
                 <br>
                 <p>feel free to talk to me :3</p>
                 <br>
@@ -126,36 +148,8 @@
         </div>
     </div>
 
-    <script>
-        function switchTab(tabId) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active-section');
-            });
-            const activeSection = document.getElementById('section-' + tabId);
-            if (activeSection) {
-                activeSection.classList.add('active-section');
-            }
-
-            const borderLabel = document.getElementById('dynamic-label');
-            if (tabId === 'home') borderLabel.innerText = "System-Root";
-            if (tabId === 'projects') borderLabel.innerText = "Project-Library";
-            if (tabId === 'contact') borderLabel.innerText = "Communication-Channels";
-
-            const footerStatus = document.getElementById('status-bar-tab');
-            const formattedName = tabId.charAt(0).toUpperCase() + tabId.slice(1);
-            footerStatus.innerText = `Status (System | Active_Tab: ${formattedName} | Mode: View)`;
-
-            const menuItems = document.querySelectorAll('.sidebar ul li');
-            menuItems.forEach(item => item.style.color = ''); // reset others
-            
-            const selectedMenu = document.getElementById('menu-' + tabId);
-            if (selectedMenu) {
-                selectedMenu.style.color = '#ff9e64';
-            }
-        }
-        switchTab('home');
-    </script>
+    <script src="js/matrix.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>

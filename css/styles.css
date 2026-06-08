@@ -138,6 +138,157 @@ li:hover {
     color: #cfc9c2;
 }
 
+.home-title {
+            color: #ff9e64;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+.home-list {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+.home-list li {
+            margin-bottom: 6px;
+            color: #a9b1d6;
+        }
+
+        .trans-gradient {
+    background: linear-gradient(
+        to right,
+        #5BCEFA 0%, #5BCEFA 20%, 
+        #F5A9B8 20%, #F5A9B8 40%,  
+        #FFFFFF 40%, #FFFFFF 60%,  
+        #F5A9B8 60%, #F5A9B8 80%,  
+        #5BCEFA 80%, #5BCEFA 100%  
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; 
+    font-weight: bold; 
+}
+
+.gradient-title {
+    background: linear-gradient(
+        to right,
+        #ff9e64 0%, 
+        #ffb48a 30%,
+        #bb9af3 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    display: inline-block; 
+    margin-bottom: 10px;
+}
+
+.content-area::-webkit-scrollbar,
+.sidebar .tui-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.content-area::-webkit-scrollbar-track,
+.sidebar .tui-box::-webkit-scrollbar-track {
+    background: #1a1b26; /* Match your main terminal background color */
+}
+
+.content-area::-webkit-scrollbar-thumb,
+.sidebar .tui-box::-webkit-scrollbar-thumb {
+    background-color: #414868; 
+    border-radius: 3px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover,
+.sidebar .tui-box::-webkit-scrollbar-thumb:hover {
+    background-color: #ff9e64;
+}
+
+.content-area,
+.sidebar .tui-box {
+    scrollbar-width: thin;
+    scrollbar-color: #414868 #1a1b26;
+}
+
+/* Boot Screen Overlay */
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1b26; /* Matches your body background */
+    color: #73daca;          /* Clean terminal green for boot logs */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 30px;
+    box-sizing: border-box;
+    z-index: 9999;           /* Sits on top of absolutely everything */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Individual log lines */
+.log-line {
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+}
+
+.log-success {
+    color: #9ece6a; /* Green success text */
+}
+
+.log-warn {
+    color: #e0af68; /* Orange warning text */
+}
+
+/* Blinking terminal underscore */
+.cursor {
+    color: #a9b1d6;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* Smooth fade out when loading finishes */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none; /* Allows interacting with the site behind it once invisible */
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #a9b1d6;
+    font-family: inherit;
+    font-size: inherit;
+    width: 80%;
+    outline: none;
+}
+
+#terminal-input::placeholder {
+    color: #565f89;
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    display: none;
+}
+
 @media (max-width: 768px) {
     body {
         height: auto; 

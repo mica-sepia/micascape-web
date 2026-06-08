@@ -1,0 +1,235 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1b26; 
+    color: #a9b1d6;          
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 20px;            
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tui-box {
+    border: 2px solid #414868;
+    border-radius: 4px;
+    position: relative;
+    padding: 30px 15px 15px 15px; 
+    background-color: #1a1b26;
+}
+
+.tui-label {
+    position: absolute;
+    top: 6px; 
+    left: 12px;
+    
+    color: #7aa2f7;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.search-prompt {
+    color: #565f89;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    flex-grow: 1;
+    min-height: 0; 
+    gap: 15px; 
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 15px; 
+}
+
+.sidebar .tui-box {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.content-area {
+    overflow-y: auto;
+}
+
+.footer {
+    margin-top: 15px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 4px 5px;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: #24283b;
+    color: #ff9e64;
+}
+
+.active-item {
+    color: #ff9e64;
+    border: 1px solid #ff9e64;
+    border-radius: 3px;
+}
+
+.tui-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.tui-table th {
+    color: #7aa2f7;
+    border-bottom: 1px dashed #414868;
+    padding-bottom: 5px;
+}
+
+.tui-table td, .tui-table th {
+    padding: 6px 10px;
+}
+
+.tui-table tr:hover td {
+    background-color: #24283b;
+    color: #73daca;
+}
+.progress-container {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    background: #24283b;
+    border: 1px solid #414868;
+}
+
+.progress-bar {
+    width: 40%; 
+    background-color: #e0af68;
+    height: 12px;
+}
+
+.progress-text {
+    margin-left: auto;
+    padding-right: 10px;
+    font-size: 12px;
+    color: #cfc9c2;
+}
+
+/* --- RESPONSIVE BREAKPOINT FOR MOBILE (768px and below) --- */
+@media (max-width: 768px) {
+    body {
+        /* Allow the viewport to grow vertically if boxes stack */
+        height: auto; 
+        overflow-y: auto; 
+        padding: 10px;
+    }
+
+    /* Stack header search and help sections vertically */
+    .header-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Force the sidebar to sit on top or bottom instead of crushing the right side */
+    .main-content {
+        grid-template-columns: 1fr; 
+        gap: 10px;
+    }
+
+    /* Stop the sidebar boxes from consuming massive artificial height */
+    .sidebar {
+        height: auto;
+        gap: 10px;
+    }
+
+    .sidebar .tui-box {
+        flex: none; /* Let height adapt naturally to contents */
+    }
+
+    /* Give the main display window space to breathe */
+    .content-area {
+        min-height: 200px;
+        margin-bottom: 10px;
+    }
+
+    .footer {
+        margin-top: 10px;
+    }
+
+    /* Make wide desktop tables scrollable horizontally inside their wrapper */
+    .tui-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* 1. Fix the overlapping headers in the footer and boxes */
+    .tui-box {
+        /* Increase top padding on mobile so wrapping text never touches the absolute label */
+        padding-top: 40px !important; 
+    }
+
+    /* 2. Fix the progress bar breaking out on tiny screens */
+    .progress-container {
+        flex-direction: column; /* Stack progress bar and text vertically */
+        align-items: stretch;
+        height: auto;
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .progress-bar {
+        width: 40%; /* Keeps your 40% completion look */
+        height: 12px;
+    }
+
+    .progress-text {
+        margin-left: 0; /* Reset desktop alignment */
+        padding-right: 0;
+        font-size: 11px;
+    }
+}
+
+/* Optional extra optimization for tiny screens (phones under 480px) */
+@media (max-width: 480px) {
+    .progress-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 5px;
+    }
+    
+    .progress-bar {
+        width: 100% !important; /* Force layout adjustment */
+        margin-bottom: 5px;
+    }
+    
+    .progress-text {
+        margin-left: 5px;
+        padding-right: 0;
+    }
+}

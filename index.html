@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>micascape</title>
+    
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <style>
+        .content-section {
+            display: none;
+        }
+        .content-section.active-section {
+            display: block;
+        }
+        
+        .tui-bio {
+            white-space: pre-wrap;
+            font-family: inherit;
+            color: #a9b1d6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-grid">
+        <div class="tui-box">
+            <span class="tui-label">Search</span>
+            <span class="search-prompt">type to search (this doesnt work lol).</span>
+        </div>
+        <div class="tui-box">
+            <span class="tui-label">Help</span>
+            <span>Type ?</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="sidebar">
+            <div class="tui-box">
+                <span class="tui-label">Menu</span>
+                <ul>
+                    <li id="menu-home" onclick="switchTab('home')">■ Home</li>
+                    <!-- <li id="menu-projects" onclick="switchTab('projects')">□ Projects</li> -->
+                    <li id="menu-contact" onclick="switchTab('contact')">□ Contact</li>
+                </ul>
+            </div>
+            <div class="tui-box active-item">
+                <span class="tui-label">Skills</span>
+                <ul>
+                    <li>▸ luau</li>
+                    <li>▸ HTML / CSS</li>
+                    <li>▸ python</li>
+                    <li>▸ larping</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tui-box content-area" id="main-display-box">
+            <span class="tui-label" id="dynamic-label">System-Root</span>
+            
+            <div id="section-home" class="content-section active-section">
+                <p class="tui-bio">▸ hello, i'm micasepia </p>
+            </div>
+
+            <div id="section-projects" class="content-section">
+                <table class="tui-table">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Stack</th>
+                            <th>Status</th>
+                            <th>Lines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Micascape-Web</td>
+                            <td>HTML, CSS, JS</td>
+                            <td>Active</td>
+                            <td>1,240</td>
+                        </tr>
+                        <tr>
+                            <td>Data-Parser-CLI</td>
+                            <td>Python</td>
+                            <td>Completed</td>
+                            <td>450</td>
+                        </tr>
+                        <tr>
+                            <td>Terminal-Portfolio</td>
+                            <td>CSS Grid</td>
+                            <td>Building</td>
+                            <td>310</td>
+                        </tr>
+                        <tr>
+                            <td>Dotfiles-v2</td>
+                            <td>Bash / Lua</td>
+                            <td>Maintained</td>
+                            <td>2,890</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="section-contact" class="content-section">
+                <h3>comms channels</h3>
+                <br>
+                <p>feel free to talk to me :3</p>
+                <br>
+                <ul>
+                    <li>▸ Discord: @micasepia</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="tui-box footer">
+        <span class="tui-label" id="status-bar-tab">Status (System | Active_Tab: Home | Mode: View)</span>
+        <div>▸ compiling larping assets... success.</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <span class="progress-text">40% Complete (-01:24)</span>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+            });
+            const activeSection = document.getElementById('section-' + tabId);
+            if (activeSection) {
+                activeSection.classList.add('active-section');
+            }
+
+            const borderLabel = document.getElementById('dynamic-label');
+            if (tabId === 'home') borderLabel.innerText = "System-Root";
+            if (tabId === 'projects') borderLabel.innerText = "Project-Library";
+            if (tabId === 'contact') borderLabel.innerText = "Communication-Channels";
+
+            const footerStatus = document.getElementById('status-bar-tab');
+            const formattedName = tabId.charAt(0).toUpperCase() + tabId.slice(1);
+            footerStatus.innerText = `Status (System | Active_Tab: ${formattedName} | Mode: View)`;
+
+            const menuItems = document.querySelectorAll('.sidebar ul li');
+            menuItems.forEach(item => item.style.color = ''); // reset others
+            
+            const selectedMenu = document.getElementById('menu-' + tabId);
+            if (selectedMenu) {
+                selectedMenu.style.color = '#ff9e64';
+            }
+        }
+        switchTab('home');
+    </script>
+
+</body>
+</html>

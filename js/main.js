@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     matrixEngine.init();
                 }
             } else if (command === "help") {
-                alert("Available easter eggs: 'matrix', 'clear', 'home', 'contact'");
+                alert("hints of easter eggs maybe left throughout the site! use 'matrix' as an example :P");
             } else if (command === "clear" && matrixEngine) {
                 matrixEngine.stop();
             } else if (command === "home" || command === "contact") {

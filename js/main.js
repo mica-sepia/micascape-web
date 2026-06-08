@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { text: "MEMORY: 640KB SYSTEM RAM TEST... PASSED", type: "success" },
         { text: "DRIVE [0]: mounting /dev/sda1/micascape-web...", type: "normal" },
         { text: "NET: initializing opsec install...", type: "normal" },
-        { text: "NET: connection to micascape.com... ESTABLISHED", type: "success" },
+        { text: "NET: connection to sys@micascape... ESTABLISHED", type: "success" },
         { text: "WARN: larping asset overflow detected in buffer.", type: "warn" },
         { text: "SYS: this javascript is killing me...", type: "warn" },
         { text: "SYS: beep boop i am a robot or something", type: "normal" },

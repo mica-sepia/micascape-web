@@ -24,14 +24,12 @@ function switchTab(tabId) {
         selectedMenu.style.color = '#ff9e64';
     }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     const bootScreen = document.getElementById("boot-screen");
     const bootLog = document.getElementById("boot-log");
     const input = document.getElementById("terminal-input");
     
     let matrixEngine = null;
-
     const logLines = [
         { text: "MICASCAPE BIOS v2.0.67 RELEASE...", type: "normal" },
         { text: "CPU: AM386 SINGLE THREAD.. OK", type: "success" },
@@ -63,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentLine = 0;
 
+    // Cascading fast log loop
     function printLine() {
         if (currentLine < logLines.length) {
             const lineData = logLines[currentLine];
@@ -76,14 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
             bootLog.appendChild(p);
             
             bootScreen.scrollTop = bootScreen.scrollHeight;
-            
             currentLine++;
             
-            let delay = Math.random() * 60 + 20; 
+            let delay = Math.random() * 50 + 15; 
             if (lineData.text.includes("GRUB:") || lineData.text.includes("SYSTEMD:") || lineData.type === "warn") {
-                delay += 80; 
+                delay += 60; 
             }
-            
             setTimeout(printLine, delay);
         } else {
             setTimeout(() => {
@@ -101,30 +98,55 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(printLine, 200);
     switchTab('home');
 
-    input.addEventListener("keydown", (e) => {
+    input.addEventListener("keydown", async (e) => {
         if (e.key === "Enter") {
-            const command = input.value.trim().toLowerCase();
+            const fullInput = input.value.trim();
             input.value = "";
             
-            if (command === "matrix" && matrixEngine) {
+            if (!fullInput) return;
+
+            const parts = fullInput.split(" ");
+            const command = parts[0].toLowerCase();
+            const args = parts.slice(1);
+            
+            if (command === "home" || command === "projects" || command === "contact") {
+                switchTab(command);
+                return;
+            }
+            
+            if (command === "help") {
+                alert("Available routines:\nNavigation: 'home', 'projects', 'contact'\nModular binaries: 'neofetch', 'matrix'");
+                return;
+            }
+
+           
+            if (command === "matrix" && matrixEngine && !matrixEngine.execute) {
                 if (matrixEngine.isActive()) {
                     matrixEngine.stop();
                 } else {
                     matrixEngine.init();
                 }
-            } else if (command === "help") {
-                alert("hints of easter eggs maybe left throughout the site! use 'matrix' as an example :P");
-            } else if (command === "clear" && matrixEngine) {
-                matrixEngine.stop();
-            } else if (command === "home" || command === "contact") {
-                switchTab(command);
+                return;
+            }
+
+            try {
+                const module = await import(`./${command}.js`);
+                
+                if (typeof module.execute === "function") {
+                    module.execute(args, matrixEngine);
+                }
+            } catch (err) {
+                console.warn(`Dynamic routine lookup failed for: js/${command}.js`, err);
+                alert(`micascape-shell: ${command}: command binary file not found`);
             }
         }
     });
 
     window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && matrixEngine && matrixEngine.isActive()) {
-            matrixEngine.stop();
+        if (e.key === "Escape" && matrixEngine) {
+            if (typeof matrixEngine.stop === "function" && matrixEngine.isActive()) {
+                matrixEngine.stop();
+            }
         }
     });
 });
